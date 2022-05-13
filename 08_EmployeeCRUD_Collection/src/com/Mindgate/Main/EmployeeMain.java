@@ -11,11 +11,11 @@ public class EmployeeMain {
 		int employeeId;
 		String name;
 		double salary;
-		String decision;
-
+		String continueChoice;
 		Employee employee;
-		EmployeeDAO dao = null;
+		EmployeeDAO dao = new EmployeeDAO();
 		Scanner scanner = new Scanner(System.in);
+
 		do {
 			System.out.println("1) Add Employee Details ");
 			System.out.println("2) update Employee Details ");
@@ -36,12 +36,13 @@ public class EmployeeMain {
 				System.out.println("Enter Salary ");
 				salary = scanner.nextDouble();
 
-				employee = new Employee(employeeId, "name", salary);
+				employee = new Employee(employeeId, name, salary);
 
-				dao = new EmployeeDAO();
-				dao.addNewEmployee(employee);
+				if (dao.addNewEmployee(employee)) {
 
-				System.out.println("Employee Added Successfully");
+					System.out.println("Employee Added Successfully");
+				} else
+					System.out.println("Try Again...!");
 				break;
 			}
 			case 2: {
@@ -54,41 +55,45 @@ public class EmployeeMain {
 				System.out.println("Enter New Salary");
 				salary = scanner.nextDouble();
 
-				employee = new Employee(employeeId, "name", salary);
-				dao.updateEmployee(employee);
+				employee = new Employee(employeeId, name, salary);
 
-				System.out.println("Updated Successfully");
-
+				if (dao.updateEmployee(employee))
+					System.out.println("Updated Successfully");
+				else
+					System.out.println("Try Again...!");
 				break;
 			}
 			case 3: {
 				System.out.println("Enter Employee Id");
 				employeeId = scanner.nextInt();
 
-				dao.deleteEmployeeByEmployeeId(employeeId);
-
-				if (true) {
+				if (dao.deleteEmployeeByEmployeeId(employeeId)) {
 					System.out.println("successfully Deleted");
-				}
+				} else
+					System.out.println("Try Again...!");
 				break;
 			}
 			case 4:
 				System.out.println("Enter Employee Id");
-				employeeId=scanner.nextInt();
-				
-				dao.getEmployeeByEmployeeId(employeeId);
-				System.out.println(	dao.getEmployeeByEmployeeId(employeeId));
+				employeeId = scanner.nextInt();
+
+				Employee emp = dao.getEmployeeByEmployeeId(employeeId);
+				System.out.println(emp);
 				break;
-				case 5:
+			case 5:
 				Set<Employee> employeeSet = dao.getAllEmployees();
-				System.out.println(employeeSet);
+				for (Employee employee2 : employeeSet) {
+					System.out.println(employee2);
+				}
 				break;
+
 			default:
-				throw new IllegalArgumentException("Unexpected value: " + choice);
+				System.out.println("Try Again...!");
+				break;
 			}
-			System.out.println("do you want to choice againg ");
-			decision = scanner.next();
-		} while(decision.equals("yes"));
+			System.out.println("do you want to choice againg if yes/No Enter y/n  ");
+			continueChoice = scanner.next();
+		} while (continueChoice.equals("y"));
 
 	}
 }

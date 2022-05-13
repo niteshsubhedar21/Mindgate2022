@@ -10,18 +10,18 @@ public class EmployeeDAO {
 
 	// Add new employee
 	public boolean addNewEmployee(Employee employee) {
-		if(employee != null) {
-		return 		employeeSet.add(employee);
+		if (employee != null) {
+			return employeeSet.add(employee);
 
 		}
-		
+
 		return false;
 	}
 
 	// update employee
 	public boolean updateEmployee(Employee employee) {
 		for (Employee setEmployee : employeeSet) {
-			if(setEmployee.getEmployeeId() == employee.getEmployeeId())
+			if (setEmployee.getEmployeeId() == employee.getEmployeeId())
 				setEmployee.setName(employee.getName());
 			setEmployee.setSalary(employee.getSalary());
 			return true;
@@ -32,21 +32,20 @@ public class EmployeeDAO {
 	// delete
 	public boolean deleteEmployeeByEmployeeId(int employeeId) {
 		for (Employee deleteEmployee : employeeSet) {
-			if(deleteEmployee.getEmployeeId() == employeeId)
-				 employeeSet.remove(deleteEmployee);
+			if (deleteEmployee.getEmployeeId() == employeeId)
+				employeeSet.remove(deleteEmployee);
 			return true;
 		}
-		
-		
+
 		return false;
 	}
 
 	// get single employee
 	public Employee getEmployeeByEmployeeId(int employeeId) {
 		for (Employee employee : employeeSet) {
-			if(employee.getEmployeeId() == employeeId)
-				
-			return employee;
+			if (employee.getEmployeeId() == employeeId)
+
+				return employee;
 		}
 		return null;
 	}
